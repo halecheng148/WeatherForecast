@@ -13,6 +13,18 @@ QWeatherForecast::~QWeatherForecast()
     delete ui;
 }
 
+void QWeatherForecast::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::RightButton)
+    {
+        m_menu = new QMenu;
+        m_menu->addAction(ui->refreshAction);
+        m_menu->addAction(ui->cityChangedAction);
+        m_menu->exec(QCursor::pos());
+    }
+    QWidget::mousePressEvent(event);
+}
+
 void QWeatherForecast::on_switchModeBtn_clicked()
 {
     QString strText = ui->switchModeBtn->text();
