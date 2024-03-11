@@ -1,5 +1,6 @@
 #include "weathernetwork.h"
 
+#include "jsonhandle.h"
 #include <QDebug>
 #include <QNetworkReply>
 
@@ -42,7 +43,7 @@ void WeatherNetWork::request(QString cityCode, QString extensions)
         qDebug() << __func__ << " : " << "reply err";
         return;
     }
-
+    this->extensions = extensions;
     // 根据响应的信号绑定处理槽函数
     connect(reply,SIGNAL(finished()),this,SLOT(response()));
 }
@@ -59,12 +60,19 @@ void WeatherNetWork::requestForecast(QString cityCode)
 
 QMap<QString, QMap<QString, QString> > WeatherNetWork::response()
 {
-    QMap<QString, QMap<QString, QString>> forecasts;
+    QMap<QString, QMap<QString, QString>> weathers;
 
     QByteArray json =static_cast<QNetworkReply*>(sender())->readAll();
-    qDebug() << json.isNull();
+    if(extensions=="base")
+    {
+        weathers = JsonHandle::weatherLivesJson(json);
 
-    return forecasts;
+    }else{
+        weathers = JsonHandle::weatherForecastJson(json);
+
+    }
+
+    return weathers;
 }
 
 

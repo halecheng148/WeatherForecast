@@ -6,12 +6,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-//    QWeatherForecast w;
-//    w.show();
-
-    WeatherNetWork nw;
-    nw.request();
-
+    QWeatherForecast w;
+    w.show();
     return a.exec();
-//    return 0;
+
 }
