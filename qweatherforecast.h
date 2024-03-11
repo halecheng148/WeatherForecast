@@ -30,7 +30,17 @@ private slots:
      */
     void on_switchModeBtn_clicked();
 
+    /**
+     * @brief on_refreshAction_triggered
+     * 刷新活动
+     */
+    void on_refreshAction_triggered(bool checked);
 
+    /**
+     * @brief on_cityChangedActionChecked
+     * 输入模式的切换
+     */
+    void on_cityChangedActionChecked(bool checked);
 
 private:
     Ui::QWeatherForecast *ui;
