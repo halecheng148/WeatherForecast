@@ -175,7 +175,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="liveLindPowerLab">
+             <widget class="QLabel" name="liveWindPowerLab">
               <property name="text">
                <string>风速</string>
               </property>
