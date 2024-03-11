@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Config/CityCodeInfo.xml</file>
+        <file>Config/WeatherApi.xml</file>
+    </qresource>
+</RCC>
