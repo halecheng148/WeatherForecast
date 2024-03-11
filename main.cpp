@@ -1,21 +1,17 @@
 #include "qweatherforecast.h"
-#include "ioxmlconfig.h"
+
+#include <weathernetwork.h>
 #include <QApplication>
 #include <QDebug>
 int main(int argc, char *argv[])
 {
-//    QApplication a(argc, argv);
+    QApplication a(argc, argv);
 //    QWeatherForecast w;
 //    w.show();
 
-    IOXmlConfig config;
-    QMap<QString,QString> map = config.getCityMapByProviceCode("370000");
-    QMap<QString,QString>::const_iterator i;
-    for(i=map.constBegin();i!=map.constEnd();i++)
-    {
-        qDebug() << i.key() << " : " << i.value();
-    }
+    WeatherNetWork nw;
+    nw.request();
 
-//    return a.exec();
-    return 0;
+    return a.exec();
+//    return 0;
 }

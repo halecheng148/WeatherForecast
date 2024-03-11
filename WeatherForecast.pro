@@ -7,7 +7,7 @@
 QT       += core gui
 QT += xml
 
-
+QT += network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = WeatherForecast
@@ -29,12 +29,14 @@ SOURCES += \
         main.cpp \
         qweatherforecast.cpp \
     weathernetwork.cpp \
-    ioxmlconfig.cpp
+    ioxmlconfig.cpp \
+    jsonhandle.cpp
 
 HEADERS += \
         qweatherforecast.h \
     weathernetwork.h \
-    ioxmlconfig.h
+    ioxmlconfig.h \
+    jsonhandle.h
 
 FORMS += \
         qweatherforecast.ui

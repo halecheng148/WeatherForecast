@@ -1,7 +1,7 @@
 #include "qweatherforecast.h"
 #include "ui_qweatherforecast.h"
 
-#include <QDebug>
+
 QWeatherForecast::QWeatherForecast(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::QWeatherForecast)
