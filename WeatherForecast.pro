@@ -25,10 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        qweatherforecast.cpp
+        qweatherforecast.cpp \
+    weathernetwork.cpp
 
 HEADERS += \
-        qweatherforecast.h
+        qweatherforecast.h \
+    weathernetwork.h
 
 FORMS += \
         qweatherforecast.ui
