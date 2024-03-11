@@ -1,3 +1,4 @@
+
 #-------------------------------------------------
 #
 # Project created by QtCreator 2024-03-10T22:00:48
@@ -28,13 +29,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         qweatherforecast.cpp \
-    weathernetwork.cpp \
     ioxmlconfig.cpp \
     jsonhandle.cpp
 
 HEADERS += \
         qweatherforecast.h \
-    weathernetwork.h \
     ioxmlconfig.h \
     jsonhandle.h
 
