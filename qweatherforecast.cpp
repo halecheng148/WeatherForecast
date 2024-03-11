@@ -1,19 +1,26 @@
 #include "qweatherforecast.h"
 #include "ui_qweatherforecast.h"
 
-
+#include "weathernetwork.h"
 QWeatherForecast::QWeatherForecast(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::QWeatherForecast)
 {
     ui->setupUi(this);
-
+    // 因两种输入方式同时存在，所以隐去一个，会影响布局的形式隐去，（不会影响的使用QSS）
+    ui->selectModeWgt->setVisible(0);
+    // 右键菜单+输入切换 + 刷新
     m_menu = new QMenu;
     m_menu->addAction(ui->refreshAction);
     m_menu->addAction(ui->cityChangedAction);
+    // 输入切换 Action + triggered()
     connect(ui->cityChangedAction,SIGNAL(triggered(bool)),this,SLOT(on_cityChangedActionChecked(bool)));
 
-    ui->selectModeWgt->setVisible(0);
+
+    //载入时，加载天气
+    WeatherNetWork network;
+
+
 
 }
 

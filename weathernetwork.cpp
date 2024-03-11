@@ -69,8 +69,8 @@ QMap<QString, QMap<QString, QString> > WeatherNetWork::response()
 
     }else{
         weathers = JsonHandle::weatherForecastJson(json);
-
     }
+
 
     return weathers;
 }
