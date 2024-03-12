@@ -3,6 +3,7 @@
 
 #include "jsonhandle.h"
 
+#include <QMessageBox>
 QWeatherForecast::QWeatherForecast(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::QWeatherForecast)
@@ -279,4 +280,31 @@ void QWeatherForecast::on_cityComboBox_currentIndexChanged(int index)
     {
         ui->countyComboBox->addItem(iter_county.value(),iter_county.key());
     }
+}
+
+void QWeatherForecast::on_cityEdit_editingFinished()
+{
+    // 获取城市名称
+    QString name = ui->cityEdit->text().trimmed();
+    // 使用自定义IOxmlconfig对象
+    IOXmlConfig config;
+    // 通过它获取其edcode
+    QString code = config.getCityCodeByName(name);
+
+    if(code.isEmpty())
+    {
+        QMessageBox::warning(this,"未响应","输入有误",QMessageBox::Ok);
+        ui->cityEdit->clear();
+        return;
+    }
+
+    // 天气请求
+    QString extensions;
+    if(ui->stackedWidget->currentWidget() == ui->page)
+        extensions = "base";
+    else
+        extensions = "all";
+
+    request(code,extensions);
+
 }

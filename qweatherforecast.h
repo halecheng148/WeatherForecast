@@ -85,7 +85,19 @@ private slots:
      */
     void on_provinceComboBox_currentIndexChanged(int index);
 
+    /**
+     * @brief on_cityComboBox_currentIndexChanged
+     * 根据名称规则自动绑定信息与信号槽;
+     * 1、根据选择刷新天气
+     * 2、根据选项，加载countyCombox的Completer
+     * @param index
+     */
     void on_cityComboBox_currentIndexChanged(int index);
+
+    /**
+     * @brief on_cityEdit_editingFinished
+     */
+    void on_cityEdit_editingFinished();
 
 private:
     Ui::QWeatherForecast *ui;

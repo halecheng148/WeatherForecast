@@ -69,7 +69,7 @@ QMap<QString,QMap<QString,QString>> JsonHandle::weatherLivesJson(QByteArray data
     {
         jsonLive = jsonLives.at(0).toObject();
         keys = jsonLive.keys();
-        qDebug() << keys.count() << __func__;
+
         for(int j=0;j<keys.count();j++)
         {
             map[keys.at(j)] = jsonLive[keys.at(j)].toString();
