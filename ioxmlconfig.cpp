@@ -111,6 +111,27 @@ QString IOXmlConfig::getCityNameByCode(QString code)
     return ret;
 }
 
+QMap<QString, QString> IOXmlConfig::getAllProvince()
+{
+    QMap<QString,QString> ret;
+    QMap<QString,QString> root = getRoot();
+    QMap<QString,QString>::const_iterator i;
+
+    QStringList keyCode = root.keys();
+    int code;
+    int count = root.count();
+    QString codeStr;
+    for(int i=0 ; i < count ; i++ )
+    {
+        codeStr = keyCode.at(i);
+        code = codeStr.toInt();
+        code = code%10000;
+        if(code == 0)
+            ret[codeStr] = root[codeStr];
+    }
+    return ret;
+}
+
 QMap<QString, QString> IOXmlConfig::getCountyByCityCode(QString code)
 {
     QMap<QString, QString> ret;

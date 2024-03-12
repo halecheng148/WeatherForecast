@@ -40,6 +40,12 @@ public:
     QString getCityNameByCode(QString code);
 
     /**
+     * @brief getAllProvince 获取所有省份 <name.code>
+     * @return
+     */
+    QMap<QString,QString> getAllProvince();
+
+    /**
      * @brief getCountyByCityCode
      * @param code 市级的code,code 6位格式 xxxx00
      * @return 返回该市的所有县区或县级市

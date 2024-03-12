@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QMouseEvent>
+#include <QCompleter>
 
 #include "ioxmlconfig.h"
 #include <QNetworkAccessManager>
@@ -46,6 +47,10 @@ protected:
      */
     void requestForecast(QString cityCode="110000");
 
+    /**
+     * @brief initialization 页面初始化
+     */
+    void initialization();
 
 private slots:
     /**
@@ -66,16 +71,32 @@ private slots:
      */
     void on_cityChangedActionChecked(bool checked);
 
+    /**
+     * @brief response 响应天气请求
+     */
     void response();
+
+    /**
+     * @brief on_provinceComboBox_currentIndexChanged
+     * 根据名称规则自动绑定信息与信号槽;
+     * 1、根据选择刷新天气
+     * 2、根据选项，加载cityCombox的Completer
+     * @param index
+     */
+    void on_provinceComboBox_currentIndexChanged(int index);
+
+    void on_cityComboBox_currentIndexChanged(int index);
 
 private:
     Ui::QWeatherForecast *ui;
 
     QMenu *m_menu;  //右键菜单
 
+    QCompleter *cityEditCompleter; // 城市的自动补全
+
     QString requestLink;
     QString key;
-    QString extensions;
+
     QNetworkAccessManager *networkMgr;
 };
 
