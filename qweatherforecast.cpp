@@ -264,9 +264,69 @@ void QWeatherForecast::response()
         ui->reportTimeLab->setText(map["reporttime"]);
 
     }else{
+        // 预测天气，数据显示，后续的绘画都需要在这实现
         extensions = "all";
         weathers = JsonHandle::weatherForecastJson(json);
+        if(weathers.isEmpty())
+        {
+            qDebug() << "NULL" << __func__;
+        }
 
+        QMap<QString,QString> map = weathers["0"];
+        if(map.isEmpty())
+        {
+            qDebug() << "NULL" << __func__;
+        }
+
+        QMap<QString,QString> info = weathers["4"];
+
+        QString cpAddr = info["province"] + "-" + info["city"];
+        ui->forecastWeatherCityLab->setText(cpAddr);
+
+        QMap<QString,QString> initMap = weathers["0"];
+        QString date = initMap["date"] + " ";
+        switch (initMap["week"].toInt()) {
+        case 1:
+            date += "星期一";
+        case 2:
+            date += "星期二";
+            break;
+        case 3:
+            date += "星期三";
+            break;
+        case 4:
+            date += "星期四";
+            break;
+        case 5:
+            date += "星期五";
+            break;
+        case 6:
+            date += "星期六";
+            break;
+        case 7:
+            date += "星期日";
+            break;
+        default:
+            break;
+        }
+
+        ui->forecastDateLab->setText(date);
+        ui->forecastHighTempLab->setText(initMap["daytemp"]+"°C");
+        ui->forecastLowTempLab->setText(initMap["nighttemp"]+"°C");
+
+        QString dnweather;
+        if(initMap["dayweather"]!=initMap["nightweather"])
+            dnweather = initMap["dayweather"]+"转"+initMap["nightweather"];
+        else
+            dnweather = initMap["dayweather"];
+
+        ui->forecastWeatherLab->setText(dnweather);
+
+
+        ui->forecastWindDirectionLab->setText(initMap["daywind"]);
+        ui->forecastWindPowerLab->setText(initMap["daypower"]+"级");
+
+        // 绘图后续
     }
 
 

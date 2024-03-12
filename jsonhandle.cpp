@@ -37,11 +37,23 @@ QMap<QString,QMap<QString,QString>> JsonHandle::weatherForecastJson(QByteArray d
         QMap<QString,QString> map;
         for(int j=0;j<keys.count();j++)
         {
-            map[keys.at(i)]=retNode[keys.at(i)].toString();
+            map[keys.at(j)]=retNode[keys.at(j)].toString();
         }
 
         ret[QString::number(i)] = map;
     }
+
+    // 还有一些基础信息 city-province-county-reporttime
+    QMap<QString,QString> infoMap;
+    keys = num0.keys();
+    for(int i=0;i<keys.count();i++)
+    {
+        if(keys.at(i) == "casts")
+            continue;
+        infoMap[keys.at(i)] = num0[keys.at(i)].toString();
+    }
+    ret[QString::number(casts.count())] = infoMap;
+
     return ret;
 }
 
