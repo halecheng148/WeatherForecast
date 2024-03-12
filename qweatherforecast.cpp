@@ -11,7 +11,7 @@ QWeatherForecast::QWeatherForecast(QWidget *parent) :
     ui->setupUi(this);
 
     initialization();
-
+    this->setWindowTitle("天气预报");
 }
 
 QWeatherForecast::~QWeatherForecast()
@@ -57,12 +57,73 @@ void QWeatherForecast::on_switchModeBtn_clicked()
 
 void QWeatherForecast::on_refreshAction_triggered(bool checked)
 {
+    Q_UNUSED(checked)
+    // 数据准备
+    QString code = "110000"; // 默认北京市
+    QString extensions;
+    if(ui->stackedWidget->currentWidget() == ui->page)
+        extensions = "base";
+    else
+        extensions = "all";
 
+
+
+    // 有两种输入模式，那个可见选哪个
+    if(ui->cityEdit->isVisible())
+    {
+        // 输入文本框mode
+        QString editName = ui->cityEdit->text();
+        if(editName.isEmpty())
+        {
+             // 使用默认的数据刷新
+            request(code,extensions);
+        }
+        else
+        {
+             IOXmlConfig config;
+             code = config.getCityCodeByName(editName);
+             if(code.isEmpty())
+             {
+                 QMessageBox::warning(this,"未响应","输入有误",QMessageBox::Ok);
+                 ui->cityEdit->clear();
+                 return;
+             }
+
+             request(code,extensions);
+        }
+    }
+    else
+    {
+
+        // 下拉选框mode
+        QString countyCode = ui->countyComboBox->currentData().toString();
+        QString cityCode = ui->cityComboBox->currentData().toString();
+        QString provinceCode = ui->provinceComboBox->currentData().toString();
+        if(!countyCode.isEmpty())
+        {
+            request(countyCode,extensions);
+        }
+        else if(!cityCode.isEmpty())
+        {
+            request(cityCode,extensions);
+        }
+        else if(!provinceCode.isEmpty())
+        {
+            request(provinceCode,extensions);
+        }
+        else
+        {
+            // 默认
+            request(code,extensions);
+        }
+
+    }
 }
 
 void QWeatherForecast::on_cityChangedActionChecked(bool checked)
 {
     Q_UNUSED(checked)
+
     bool ComboHide = ui->selectModeWgt->isHidden();
     if(ComboHide)
     {
@@ -205,6 +266,7 @@ void QWeatherForecast::response()
     }else{
         extensions = "all";
         weathers = JsonHandle::weatherForecastJson(json);
+
     }
 
 
