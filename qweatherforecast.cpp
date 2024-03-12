@@ -333,14 +333,20 @@ void QWeatherForecast::on_cityComboBox_currentIndexChanged(int index)
 
     // countyComboBox绑定
     // 前清空之前的
-    ui->countyComboBox->clear();
-    IOXmlConfig config;
-    QMap<QString,QString> cityMap = config.getCountyByCityCode(code);
-    QMap<QString,QString>::const_iterator iter_county;
-     ui->countyComboBox->addItem("空","");
-    for(iter_county=cityMap.constBegin();iter_county!=cityMap.constEnd();iter_county++)
+    // 判断是否未直辖市：通过code
+    int codeTasking = code.toInt();
+    codeTasking = codeTasking%100;
+    if(codeTasking==0)
     {
-        ui->countyComboBox->addItem(iter_county.value(),iter_county.key());
+        ui->countyComboBox->clear();
+        IOXmlConfig config;
+        QMap<QString,QString> cityMap = config.getCountyByCityCode(code);
+        QMap<QString,QString>::const_iterator iter_county;
+         ui->countyComboBox->addItem("空","");
+        for(iter_county=cityMap.constBegin();iter_county!=cityMap.constEnd();iter_county++)
+        {
+            ui->countyComboBox->addItem(iter_county.value(),iter_county.key());
+        }
     }
 }
 

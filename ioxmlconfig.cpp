@@ -188,5 +188,27 @@ QMap<QString, QString> IOXmlConfig::getCityMapByProviceCode(QString code)
         if(proviceCode!=codeNumProvice && logo==1)
             break;
     }
+
+    // 特殊的直辖市，下只有县区一级，特别加在这里
+    if(ret.isEmpty())
+    {
+        logo = 0;
+        for(i=root.constBegin();i!=root.constEnd();i++)
+        {
+            int codeNum = i.key().toInt();
+            int codeNumProvince = codeNum/10000;
+            if(proviceCode == codeNumProvince)
+            {
+                logo = 1;
+                if(i.key()==code)
+                    continue;
+                ret[i.key()]=i.value();
+            }
+            if(proviceCode != codeNumProvince && logo ==1)
+                break;
+        }
+    }
+
+
     return ret;
 }
