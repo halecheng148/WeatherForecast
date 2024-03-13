@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>727</width>
-    <height>487</height>
+    <width>794</width>
+    <height>509</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>CWeatherForecast</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_7">
       <item>
@@ -247,7 +247,7 @@
          <number>0</number>
         </property>
         <item>
-         <layout class="QGridLayout" name="gridLayout">
+         <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1" columnstretch="0,0,0">
           <property name="rightMargin">
            <number>80</number>
           </property>
@@ -293,6 +293,27 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="forecastDateLab">
+            <property name="text">
+             <string>星期 日期</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="forecastWeatherLab">
+            <property name="text">
+             <string>天气</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="forecastWeatherCityLab">
+            <property name="text">
+             <string>城市标签</string>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="2">
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <property name="spacing">
@@ -314,27 +335,6 @@
             </item>
            </layout>
           </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="forecastWeatherLab">
-            <property name="text">
-             <string>天气</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="forecastWeatherCityLab">
-            <property name="text">
-             <string>城市标签</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="forecastDateLab">
-            <property name="text">
-             <string>星期 日期</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
        </layout>
@@ -348,7 +348,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>727</width>
+     <width>794</width>
      <height>26</height>
     </rect>
    </property>

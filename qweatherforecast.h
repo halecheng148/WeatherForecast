@@ -8,6 +8,8 @@
 #include "ioxmlconfig.h"
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+
+#include "forecastchartwight.h"
 namespace Ui {
 class QWeatherForecast;
 }
@@ -51,6 +53,12 @@ protected:
      * @brief initialization 页面初始化
      */
     void initialization();
+
+    /**
+     * @brief drawingChartWidget
+     * @param tempInfo
+     */
+    void drawingChartWidget(const QMap<QString,QMap<QString,QString>> &tempInfo);
 
 private slots:
     /**
@@ -110,6 +118,8 @@ private:
     QString key;
 
     QNetworkAccessManager *networkMgr;
+
+    ForecastChartWight *fcWidget;
 };
 
 #endif // QWEATHERFORECAST_H

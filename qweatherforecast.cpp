@@ -1,6 +1,8 @@
 #include "qweatherforecast.h"
 #include "ui_qweatherforecast.h"
 
+
+
 #include "jsonhandle.h"
 
 #include <QMessageBox>
@@ -22,7 +24,7 @@ QWeatherForecast::~QWeatherForecast()
 
     delete cityEditCompleter;
     cityEditCompleter = Q_NULLPTR;
-
+    delete fcWidget;
     delete ui;
 }
 
@@ -47,12 +49,19 @@ void QWeatherForecast::on_switchModeBtn_clicked()
 
     QWidget* page = ui->stackedWidget->currentWidget();
     if(ui->page == page)
-        page = ui->page_2;
+    {
+        ui->switchModeBtn->setText(strText);
+        ui->stackedWidget->setCurrentWidget(ui->page_2);
+        emit ui->refreshAction->triggered(true);
+    }
     else
-        page = ui->page;
+    {
+        ui->switchModeBtn->setText(strText);
+        ui->stackedWidget->setCurrentWidget(ui->page);
+        emit ui->refreshAction->triggered(true);
+    }
 
-    ui->switchModeBtn->setText(strText);
-    ui->stackedWidget->setCurrentWidget(page);
+
 }
 
 void QWeatherForecast::on_refreshAction_triggered(bool checked)
@@ -223,6 +232,17 @@ void QWeatherForecast::initialization()
     }
 }
 
+void QWeatherForecast::drawingChartWidget(const QMap<QString, QMap<QString, QString> > &tempInfo)
+{
+
+    delete fcWidget;
+    fcWidget = nullptr;
+    fcWidget = new ForecastChartWight(this);
+    fcWidget->drawing(tempInfo);
+    ui->gridLayout->addWidget(fcWidget,3,0,1,3);
+    ui->gridLayout->setRowStretch(3,3);
+}
+
 void QWeatherForecast::response()
 {
     QMap<QString, QMap<QString, QString>> weathers;
@@ -236,13 +256,13 @@ void QWeatherForecast::response()
         weathers = JsonHandle::weatherLivesJson(json);
         if(weathers.isEmpty())
         {
-            qDebug() << "NULL" << __func__;
+            qDebug() << "weathers NULL" << __func__;
         }
 
         QMap<QString,QString> map = weathers["0"];
         if(map.isEmpty())
         {
-            qDebug() << "NULL" << __func__;
+            qDebug() << " map NULL" << __func__;
         }
         QString temp = map["temperature_float"] + "°C";
         ui->liveTempLab->setText(temp);
@@ -269,13 +289,13 @@ void QWeatherForecast::response()
         weathers = JsonHandle::weatherForecastJson(json);
         if(weathers.isEmpty())
         {
-            qDebug() << "NULL" << __func__;
+            qDebug() << " weathers NULL" << __func__;
         }
 
         QMap<QString,QString> map = weathers["0"];
         if(map.isEmpty())
         {
-            qDebug() << "NULL" << __func__;
+            qDebug() << " map NULL" << __func__;
         }
 
         QMap<QString,QString> info = weathers["4"];
@@ -327,10 +347,8 @@ void QWeatherForecast::response()
         ui->forecastWindPowerLab->setText(initMap["daypower"]+"级");
 
         // 绘图后续
+        drawingChartWidget(weathers);
     }
-
-
-
 }
 
 
