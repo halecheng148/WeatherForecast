@@ -18,6 +18,8 @@ ForecastChartWight::ForecastChartWight(QWidget *parent) :
     chart->addAxis(valueAxis,Qt::AlignRight);
     chart->addSeries(daySeries);
     chart->addSeries(nightSeries);
+
+    setObjectName("ForecastChartWight");
 }
 
 ForecastChartWight::~ForecastChartWight()

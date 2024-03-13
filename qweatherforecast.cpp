@@ -13,6 +13,7 @@ QWeatherForecast::QWeatherForecast(QWidget *parent) :
 
     initialization();
     this->setWindowTitle("天气预报");
+    this->setObjectName("QWeatherForecast");
 }
 
 QWeatherForecast::~QWeatherForecast()
@@ -59,7 +60,6 @@ void QWeatherForecast::on_switchModeBtn_clicked()
         ui->stackedWidget->setCurrentWidget(ui->page);
         emit ui->refreshAction->triggered(true);
     }
-
 
 }
 
@@ -294,6 +294,15 @@ QString QWeatherForecast::weekHandle(QString week)
     return date;
 }
 
+bool QWeatherForecast::isDayNow()
+{
+    QDateTime currentNow = QDateTime::currentDateTime();
+
+    bool isDay = currentNow.time().hour() >= 6 && currentNow.time().hour() <= 18;
+
+    return isDay;
+}
+
 void QWeatherForecast::response()
 {
     QMap<QString, QMap<QString, QString>> weathers;
@@ -330,6 +339,8 @@ void QWeatherForecast::response()
         ui->liveWeatherCityLab->setText(provinceCity);
 
         ui->liveWeatherLab->setText(map["weather"]);
+
+        ui->liveWeatherImgLab->setProperty("weather",map["weather"]);
         ui->liveWindDirectionLab->setText(map["winddirection"]);
         ui->liveWindPowerLab->setText(map["windpower"]);
         ui->reportTimeLab->setText(map["reporttime"]);
@@ -363,9 +374,21 @@ void QWeatherForecast::response()
 
         QString dnweather;
         if(initMap["dayweather"]!=initMap["nightweather"])
+        {
             dnweather = initMap["dayweather"]+"转"+initMap["nightweather"];
+            if(isDayNow())
+            {
+                ui->forecastWeatherImgLab->setProperty("weather",initMap["dayweather"]);
+            }
+            else
+            {
+                ui->forecastWeatherImgLab->setProperty("weather",initMap["nightweather"]);
+            }
+        }
         else
-            dnweather = initMap["dayweather"];
+        {
+             dnweather = initMap["dayweather"];
+        }
 
         ui->forecastWeatherLab->setText(dnweather);
 

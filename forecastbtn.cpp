@@ -1,6 +1,7 @@
 #include "forecastbtn.h"
 #include "ui_forecastbtn.h"
 #include <QMouseEvent>
+#include <QDateTime>
 ForecastBtn::ForecastBtn(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ForecastBtn)
@@ -17,6 +18,28 @@ ForecastBtn::ForecastBtn(QString week, QString weather, QString temp, QWidget *p
     ui->weekLab->setText(weekHandle(week));
     ui->weatherLab->setText(weather);
     ui->tempLab->setText(temp);
+
+
+
+    QString delimiter = "转";
+    QStringList weathers = weather.split(delimiter,QString::SkipEmptyParts);
+    if(weathers.count()==1)
+    {
+        ui->weatherLab->setProperty("weather",weather);
+    }
+    else
+    {
+        if(isDayNow())
+        {
+            ui->weatherLab->setProperty("weather",weathers.at(0));
+        }
+        else
+        {
+             ui->weatherLab->setProperty("weather",weathers.at(0));
+        }
+    }
+
+
 }
 
 ForecastBtn::~ForecastBtn()
@@ -61,3 +84,13 @@ QString ForecastBtn::weekHandle(QString week)
     }
     return date;
 }
+
+bool ForecastBtn::isDayNow()
+{
+    QDateTime currentNow = QDateTime::currentDateTime();
+
+    bool isDay = currentNow.time().hour() >= 6 && currentNow.time().hour() <= 18;
+
+    return isDay;
+}
+

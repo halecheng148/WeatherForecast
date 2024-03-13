@@ -17,6 +17,14 @@ public:
     ~ForecastBtn();
 
     QString weekHandle(QString week);
+
+    /**
+     * @brief isDayOrNightNow 判断当前是否为白天
+     * @return
+     */
+    bool isDayNow();
+
+
 signals:
     void checked(QString week);
 protected:

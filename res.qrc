@@ -21,5 +21,6 @@
         <file>image/yujiaxue.png</file>
         <file>image/zhongxue.png</file>
         <file>image/zhongyu.png</file>
+        <file>qss/main.qss</file>
     </qresource>
 </RCC>

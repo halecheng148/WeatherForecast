@@ -67,6 +67,12 @@ protected:
      */
     QString weekHandle(QString week);
 
+    /**
+     * @brief isDayOrNightNow 判断当前是否为白天
+     * @return
+     */
+    bool isDayNow();
+
 private slots:
     /**
      * @brief on_switchModeBtn_clicked
