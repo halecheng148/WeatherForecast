@@ -1,6 +1,6 @@
 #include "forecastchartwight.h"
 #include "ui_forecastchartwight.h"
-
+#include "forecastbtn.h"
 #include <QMap>
 ForecastChartWight::ForecastChartWight(QWidget *parent) :
     QWidget(parent),
@@ -50,6 +50,24 @@ void ForecastChartWight::drawing(const QMap<QString, QMap<QString, QString>> &te
 
         maxTemp = map["daytemp"].toInt() > maxTemp?map["daytemp"].toInt():maxTemp;
         minTemp =  minTemp < map["nighttemp"].toInt()?minTemp:map["nighttemp"].toInt();
+
+
+        // 添加按钮
+        // 数据准备：
+        QString weather;
+        if(map["dayweather"]!=map["nightweather"])
+            weather = map["dayweather"]+"转"+map["nightweather"];
+        else
+            weather = map["dayweather"];
+        QString week = map["week"];
+        QString tempBtn = map["daytemp"]+"°C~"+map["nighttemp"]+"°C";
+        ForecastBtn *btn = new ForecastBtn(week,weather,tempBtn,this);
+
+        // 监听鼠标右键单击事件,传递信息
+        connect(btn,&ForecastBtn::checked,this,&ForecastChartWight::forecastBtnCheckedSlot);
+
+        ui->horizontalLayout->addWidget(btn);
+
     }
     valueAxis->setRange(minTemp-2,maxTemp+2);
 
@@ -59,5 +77,11 @@ void ForecastChartWight::drawing(const QMap<QString, QMap<QString, QString>> &te
     nightSeries->attachAxis(dateTimeAxis);
 
 }
+
+void ForecastChartWight::forecastBtnCheckedSlot(QString week)
+{
+    emit forecastBtnCheckedSignal(week);
+}
+
 
 

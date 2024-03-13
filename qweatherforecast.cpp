@@ -2,7 +2,6 @@
 #include "ui_qweatherforecast.h"
 
 
-
 #include "jsonhandle.h"
 
 #include <QMessageBox>
@@ -240,7 +239,59 @@ void QWeatherForecast::drawingChartWidget(const QMap<QString, QMap<QString, QStr
     fcWidget = new ForecastChartWight(this);
     fcWidget->drawing(tempInfo);
     ui->gridLayout->addWidget(fcWidget,3,0,1,3);
-    ui->gridLayout->setRowStretch(3,3);
+    ui->gridLayout->setRowStretch(3,6);
+    connect(fcWidget,&ForecastChartWight::forecastBtnCheckedSignal,[=](QString week){
+        int index = week.toInt() - tempInfo["0"]["week"].toInt();
+        QMap<QString,QString> map = tempInfo[QString::number(index)];
+          QString date = map["date"] + weekHandle(map["week"]);
+        ui->forecastDateLab->setText(date);
+        ui->forecastHighTempLab->setText(map["daytemp"]+"°C");
+        ui->forecastLowTempLab->setText(map["nighttemp"]+"°C");
+
+        QString dnweather;
+        if(map["dayweather"]!=map["nightweather"])
+            dnweather = map["dayweather"]+"转"+map["nightweather"];
+        else
+            dnweather = map["dayweather"];
+
+        ui->forecastWeatherLab->setText(dnweather);
+
+
+        ui->forecastWindDirectionLab->setText(map["daywind"]);
+        ui->forecastWindPowerLab->setText(map["daypower"]+"级");
+
+    });
+
+}
+
+QString QWeatherForecast::weekHandle(QString week)
+{
+    QString date = "";
+    switch (week.toInt()) {
+    case 1:
+        date += "星期一";
+    case 2:
+        date += "星期二";
+        break;
+    case 3:
+        date += "星期三";
+        break;
+    case 4:
+        date += "星期四";
+        break;
+    case 5:
+        date += "星期五";
+        break;
+    case 6:
+        date += "星期六";
+        break;
+    case 7:
+        date += "星期日";
+        break;
+    default:
+        break;
+    }
+    return date;
 }
 
 void QWeatherForecast::response()
@@ -304,31 +355,7 @@ void QWeatherForecast::response()
         ui->forecastWeatherCityLab->setText(cpAddr);
 
         QMap<QString,QString> initMap = weathers["0"];
-        QString date = initMap["date"] + " ";
-        switch (initMap["week"].toInt()) {
-        case 1:
-            date += "星期一";
-        case 2:
-            date += "星期二";
-            break;
-        case 3:
-            date += "星期三";
-            break;
-        case 4:
-            date += "星期四";
-            break;
-        case 5:
-            date += "星期五";
-            break;
-        case 6:
-            date += "星期六";
-            break;
-        case 7:
-            date += "星期日";
-            break;
-        default:
-            break;
-        }
+        QString date = initMap["date"] + weekHandle(initMap["week"]);
 
         ui->forecastDateLab->setText(date);
         ui->forecastHighTempLab->setText(initMap["daytemp"]+"°C");

@@ -18,6 +18,12 @@ public:
 
     void drawing(const QMap<QString,QMap<QString,QString>> &tempInfo);
 
+signals:
+    void forecastBtnCheckedSignal(QString week);
+
+public slots:
+    void forecastBtnCheckedSlot(QString week);
+
 private:
     Ui::ForecastChartWight *ui;
 
@@ -26,6 +32,8 @@ private:
     QLineSeries *nightSeries;
     QValueAxis *valueAxis;
     QDateTimeAxis *dateTimeAxis;
+
+
 
 };
 

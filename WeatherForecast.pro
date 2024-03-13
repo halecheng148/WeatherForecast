@@ -33,17 +33,20 @@ SOURCES += \
         qweatherforecast.cpp \
     ioxmlconfig.cpp \
     jsonhandle.cpp \
-    forecastchartwight.cpp
+    forecastchartwight.cpp \
+    forecastbtn.cpp
 
 HEADERS += \
         qweatherforecast.h \
     ioxmlconfig.h \
     jsonhandle.h \
-    forecastchartwight.h
+    forecastchartwight.h \
+    forecastbtn.h
 
 FORMS += \
         qweatherforecast.ui \
-    forecastchartwight.ui
+    forecastchartwight.ui \
+    forecastbtn.ui
 
 RESOURCES += \
     res.qrc

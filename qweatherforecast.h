@@ -60,6 +60,13 @@ protected:
      */
     void drawingChartWidget(const QMap<QString,QMap<QString,QString>> &tempInfo);
 
+    /**
+     * @brief weekHandle 返回 “星期X”的形式
+     * @param week
+     * @return
+     */
+    QString weekHandle(QString week);
+
 private slots:
     /**
      * @brief on_switchModeBtn_clicked
