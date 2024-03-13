@@ -2,5 +2,24 @@
     <qresource prefix="/">
         <file>Config/CityCodeInfo.xml</file>
         <file>Config/WeatherApi.xml</file>
+        <file>image/baoxue.png</file>
+        <file>image/dabaoyu.png</file>
+        <file>image/daxue.png</file>
+        <file>image/dayu.png</file>
+        <file>image/duoyun.png</file>
+        <file>image/fuchen.png</file>
+        <file>image/leizhenyu.png</file>
+        <file>image/mian.jpg</file>
+        <file>image/qing.png</file>
+        <file>image/shuang.png</file>
+        <file>image/tedabaoyu.png</file>
+        <file>image/wu.png</file>
+        <file>image/xiaoxue.png</file>
+        <file>image/xiaoyu.png</file>
+        <file>image/yangsha.png</file>
+        <file>image/yin.png</file>
+        <file>image/yujiaxue.png</file>
+        <file>image/zhongxue.png</file>
+        <file>image/zhongyu.png</file>
     </qresource>
 </RCC>
